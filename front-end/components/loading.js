@@ -1,6 +1,6 @@
-function Loading() {
+function Loading(props) {
     return (
-        <div className="w-100 py-40 flex justify-center">
+        <div {...props}>
             <div aria-label="Loading..." role="status">
                 <svg className="h-12 w-12 animate-spin" viewBox="3 3 18 18">
                     <path

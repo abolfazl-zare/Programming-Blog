@@ -4,7 +4,18 @@ import {useAuth} from "@/contexts/auth";
 function Navigation() {
     const router = useRouter();
 
-    const {isAuthenticated, logout} = useAuth();
+    const {isAuthenticated, logout, isLoading} = useAuth();
+
+    const routes = [
+        {
+            title: "Home",
+            url: "/"
+        },
+        {
+            title: "Profile",
+            url: "/profile"
+        }
+    ];
 
     return (
         <nav
@@ -30,18 +41,14 @@ function Navigation() {
 
             <div className="menu w-full lg:block flex-grow lg:flex lg:items-center lg:w-auto lg:px-3 px-8">
                 <div className="text-md font-bold text-blue-700 lg:flex-grow">
-                    <a href="#responsive-header"
-                       className="block mt-4 lg:inline-block lg:mt-0 hover:text-white px-4 py-2 rounded hover:bg-blue-700 mr-2">
-                        Menu 1
-                    </a>
-                    <a href="#responsive-header"
-                       className=" block mt-4 lg:inline-block lg:mt-0 hover:text-white px-4 py-2 rounded hover:bg-blue-700 mr-2">
-                        Menu 2
-                    </a>
-                    <a href="#responsive-header"
-                       className="block mt-4 lg:inline-block lg:mt-0 hover:text-white px-4 py-2 rounded hover:bg-blue-700 mr-2">
-                        Menu 3
-                    </a>
+                    {routes.map((route, key) => (
+                        <a
+                            onClick={() => router.push(route.url)}
+                            key={key}
+                            className="cursor-pointer block mt-4 lg:inline-block lg:mt-0 hover:text-white px-4 py-2 rounded hover:bg-blue-700 mr-2">
+                            {route.title}
+                        </a>
+                    ))}
                 </div>
 
                 <div className="relative mx-auto text-gray-600 lg:block hidden">
@@ -60,31 +67,33 @@ function Navigation() {
                     {/*</button>*/}
                 </div>
                 <div className="flex ">
-
-                    {isAuthenticated ? (
-                        <a
-                            className="cursor-pointer block text-md px-4 py-2 rounded text-blue-700 ml-2 font-bold hover:text-white mt-4 hover:bg-blue-700 lg:mt-0"
-                            onClick={() => logout()}
-                        >Logout</a>
-                    ) : (
+                    {!isLoading && (
                         <>
+                            {isAuthenticated ? (
+                                <a
+                                    className="cursor-pointer block text-md px-4 py-2 rounded text-blue-700 ml-2 font-bold hover:text-white mt-4 hover:bg-blue-700 lg:mt-0"
+                                    onClick={() => logout()}
+                                >Logout</a>
+                            ) : (
+                                <>
 
-                            <a
-                                className="cursor-pointer block text-md px-4 py-2 rounded text-blue-700 ml-2 font-bold hover:text-white mt-4 hover:bg-blue-700 lg:mt-0"
-                                onClick={() => {
-                                    router.push("/register")
-                                }}
-                            >Sign
-                                in</a>
+                                    <a
+                                        className="cursor-pointer block text-md px-4 py-2 rounded text-blue-700 ml-2 font-bold hover:text-white mt-4 hover:bg-blue-700 lg:mt-0"
+                                        onClick={() => {
+                                            router.push("/register")
+                                        }}
+                                    >Sign
+                                        in</a>
 
-                            <a
-                                onClick={() => {
-                                    router.push("/login")
-                                }}
-                                className="cursor-pointer block text-md px-4  ml-2 py-2 rounded text-blue-700 font-bold hover:text-white mt-4 hover:bg-blue-700 lg:mt-0">login</a>
+                                    <a
+                                        onClick={() => {
+                                            router.push("/login")
+                                        }}
+                                        className="cursor-pointer block text-md px-4  ml-2 py-2 rounded text-blue-700 font-bold hover:text-white mt-4 hover:bg-blue-700 lg:mt-0">login</a>
+                                </>
+                            )}
                         </>
                     )}
-
 
                 </div>
             </div>

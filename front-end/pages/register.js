@@ -1,12 +1,34 @@
 import {useAuth} from "@/contexts/auth";
 import {useState} from "react";
+import Axios from "axios";
+import api from "../utils/api";
+import {useRouter} from "next/router";
+import {toast} from 'react-toastify';
+import {POST_REGISTER} from "@/constans/urls";
 
 export default function Login() {
 
-    const {isAuthenticated, login} = useAuth();
-
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [userName, setUserName] = useState("");
+
+    const router = useRouter();
+
+
+    const handelRegister = () => {
+        api.post(POST_REGISTER, {
+            username: userName,
+            email: email,
+            password: password,
+        })
+            .then(response => {
+                toast.success('mission accomplished');
+                router.push("/login");
+            })
+            .catch(error => {
+                console.log('An error occurred:', error.response);
+            });
+    }
 
     return (
         <>
@@ -35,10 +57,18 @@ export default function Login() {
                     </div>
                     <div className="mt-10 px-12 sm:px-24 md:px-48 lg:px-12 lg:mt-16 xl:px-24 xl:max-w-2xl">
                         <h2 className="text-center text-4xl text-indigo-900 font-display font-semibold lg:text-left xl:text-5xl
-                    xl:text-bold">Log in</h2>
+                    xl:text-bold">Sign in</h2>
                         <div className="mt-12">
                             <form>
                                 <div>
+                                    <div className="text-sm font-bold text-gray-700 tracking-wide">User Name</div>
+                                    <input
+                                        className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
+                                        type="" placeholder="mike@gmail.com"
+                                        value={userName}
+                                        onChange={(e) => setUserName(e.target.value)}/>
+                                </div>
+                                <div className="mt-8">
                                     <div className="text-sm font-bold text-gray-700 tracking-wide">Email Address</div>
                                     <input
                                         className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
@@ -50,12 +80,6 @@ export default function Login() {
                                     <div className="flex justify-between items-center">
                                         <div className="text-sm font-bold text-gray-700 tracking-wide">
                                             Password
-                                        </div>
-                                        <div>
-                                            <a className="text-xs font-display font-semibold text-indigo-600 hover:text-indigo-800
-                                        cursor-pointer">
-                                                Forgot Password?
-                                            </a>
                                         </div>
                                     </div>
                                     <input
@@ -69,15 +93,15 @@ export default function Login() {
                                 font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-indigo-600
                                 shadow-lg" onClick={(event) => {
                                         event.preventDefault();
-                                        login(email, password)
+                                        handelRegister()
                                     }}>
-                                        Log In
+                                        Sign in
                                     </button>
                                 </div>
                             </form>
                             <div className="mt-12 text-sm font-display font-semibold text-gray-700 text-center">
-                                Dont have an account ? <a
-                                className="cursor-pointer text-indigo-600 hover:text-indigo-800">Sign up</a>
+                                Do you have an account ? <a
+                                className="cursor-pointer text-indigo-600 hover:text-indigo-800">Log in</a>
                             </div>
                         </div>
                     </div>

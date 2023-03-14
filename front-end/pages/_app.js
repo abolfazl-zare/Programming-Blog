@@ -1,37 +1,34 @@
 import '@/styles/globals.css'
-import {AuthProvider, ProtectRoute} from "../contexts/auth"
+import {AuthProvider, ProtectRoute} from "../contexts/auth/auth"
 import Layout from "@/components/layout";
+import {StoreProvider} from "@/contexts/store/store";
 
 import 'react-toastify/dist/ReactToastify.css';
 import {ToastContainer} from "react-toastify";
+import toastConfig from "@/constans/toast-config";
 
 export default function App({Component, pageProps}) {
     return (
         <>
-            <AuthProvider>
+            <StoreProvider>
 
-                <Layout>
+                <AuthProvider>
 
-                    <ProtectRoute>
+                    <Layout>
 
-                        <Component {...pageProps} />
+                        <ProtectRoute>
 
-                    </ProtectRoute>
+                            <Component {...pageProps} />
 
-                </Layout>
+                        </ProtectRoute>
 
-            </AuthProvider>
-            
-            <ToastContainer {...{
-                position: "bottom-left",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            }}/>
+                    </Layout>
+
+                </AuthProvider>
+
+            </StoreProvider>
+
+            <ToastContainer {...toastConfig}/>
         </>
     )
 }

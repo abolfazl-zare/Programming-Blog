@@ -1,10 +1,10 @@
 import React, {createContext, useState, useContext, useEffect} from 'react'
 import Cookies from 'js-cookie'
 import {useRouter,} from 'next/router'
-import api from '../utils/api';
+import api from '../../utils/api';
 import Loading from "@/components/loading";
 import {GET_MY_INFO, POST_LOGIN} from "@/constans/urls";
-import {privateRoutes} from "@/constans/private-routes";
+import {privateRoutes} from "@/contexts/auth/private-routes";
 import {toast} from "react-toastify";
 
 
@@ -16,8 +16,6 @@ export const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
     const router = useRouter();
-
-    console.log("Auth Provider")
 
     useEffect(() => {
         async function loadUserFromCookies() {

@@ -1,4 +1,4 @@
-import {useAuth} from "@/contexts/auth";
+import {useAuth} from "@/contexts/auth/auth";
 import {useState} from "react";
 import Axios from "axios";
 import api from "../utils/api";

@@ -5,13 +5,24 @@ import styles from '@/styles/Home.module.css'
 import {useEffect} from "react";
 import Axios from "axios";
 import {toast} from "react-toastify";
+import {useStore, SET, REMOVE} from "@/contexts/store/store";
 
 const inter = Inter({subsets: ['latin']})
 
 export default function Home() {
+    const store = useStore();
+    const {action} = store;
 
+
+    console.log("store", store);
 
     useEffect(() => {
+
+        action({
+            type: SET,
+            path: "items",
+            payload: [{name: "set abolfazl"}],
+        });
 
         // Axios({
         //     method: "get",
@@ -22,17 +33,6 @@ export default function Home() {
         // }).then((res) => {
         //     console.log(res)
         // })
-
-        // toast.success('🦄 Wow so easy!', {
-        //     position: "bottom-left",
-        //     autoClose: 5000,
-        //     hideProgressBar: false,
-        //     closeOnClick: true,
-        //     pauseOnHover: true,
-        //     draggable: true,
-        //     progress: undefined,
-        //     theme: "light",
-        // });
     }, [])
 
     return (
@@ -44,6 +44,7 @@ export default function Home() {
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
             <main className={styles.main}>
+                {/*{store.data}*/}
                 <div className={styles.description}>
                     <p>
                         Get started by editing&nbsp;

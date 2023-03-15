@@ -11,18 +11,15 @@ const inter = Inter({subsets: ['latin']})
 
 export default function Home() {
     const store = useStore();
-    const {action} = store;
-
-
-    console.log("store", store);
+    // const {action, authenticatedUser} = store;
 
     useEffect(() => {
 
-        action({
-            type: SET,
-            path: "items",
-            payload: [{name: "set abolfazl"}],
-        });
+        // action({
+        //     type: SET,
+        //     path: "items",
+        //     payload: [{name: "set abolfazl"}],
+        // });
 
         // Axios({
         //     method: "get",

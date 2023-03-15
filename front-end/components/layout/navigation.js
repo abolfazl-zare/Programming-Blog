@@ -1,19 +1,22 @@
 import {useRouter} from "next/router";
 import {useAuth} from "@/contexts/auth/auth";
+import {useStore} from "@/contexts/store/store";
 
 function Navigation() {
     const router = useRouter();
-
     const {isAuthenticated, logout, isLoading} = useAuth();
+    const {authenticatedUser} = useStore();
 
     const routes = [
         {
+            show: true,
             title: "Home",
             url: "/"
         },
         {
+            show: (authenticatedUser),
             title: "Profile",
-            url: "/profile"
+            url: `/profile/${authenticatedUser && authenticatedUser.id}`
         }
     ];
 
@@ -41,14 +44,17 @@ function Navigation() {
 
             <div className="menu w-full lg:block flex-grow lg:flex lg:items-center lg:w-auto lg:px-3 px-8">
                 <div className="text-md font-bold text-blue-700 lg:flex-grow">
-                    {routes.map((route, key) => (
-                        <a
-                            onClick={() => router.push(route.url)}
-                            key={key}
-                            className="cursor-pointer block mt-4 lg:inline-block lg:mt-0 hover:text-white px-4 py-2 rounded hover:bg-blue-700 mr-2">
-                            {route.title}
-                        </a>
-                    ))}
+                    {routes.map((route, key) => {
+
+                        if (route.show) return (
+                            <a
+                                onClick={() => router.push(route.url)}
+                                key={key}
+                                className="cursor-pointer block mt-4 lg:inline-block lg:mt-0 hover:text-white px-4 py-2 rounded hover:bg-blue-700 mr-2">
+                                {route.title}
+                            </a>
+                        )
+                    })}
                 </div>
 
                 <div className="relative mx-auto text-gray-600 lg:block hidden">

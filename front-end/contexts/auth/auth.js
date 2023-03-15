@@ -5,7 +5,7 @@ import api from '../../utils/api';
 import Loading from "@/components/loading";
 import {GET_MY_INFO, POST_LOGIN} from "@/constans/urls";
 import {privateRoutes} from "@/contexts/auth/private-routes";
-import {toast} from "react-toastify";
+import {REMOVE, SET, useStore} from "@/contexts/store/store";
 
 
 const AuthContext = createContext({});
@@ -13,9 +13,9 @@ const AuthContext = createContext({});
 
 export const AuthProvider = ({children}) => {
 
-    const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
     const router = useRouter();
+    const {authenticatedUser, action} = useStore();
 
     useEffect(() => {
         async function loadUserFromCookies() {
@@ -23,7 +23,14 @@ export const AuthProvider = ({children}) => {
             if (token) {
                 api.defaults.headers.Authorization = `Bearer ${token}`
                 const {data: user} = await api.get(GET_MY_INFO)
-                if (user) setUser(user);
+                if (user) {
+                    action({
+                        type: SET,
+                        path: "authenticatedUser",
+                        payload: user
+                    })
+                }
+                ;
             }
             setLoading(false)
         }
@@ -33,7 +40,7 @@ export const AuthProvider = ({children}) => {
 
     const login = async (email, password) => {
 
-        if (user !== null) return;
+        if (authenticatedUser) return;
 
         const {data} = await api.post(POST_LOGIN, {identifier: email, password: password})
         const {jwt: token} = data;
@@ -42,23 +49,28 @@ export const AuthProvider = ({children}) => {
             Cookies.set('token', token, {expires: 60})
             api.defaults.headers.Authorization = `Bearer ${token}`
             const {data: user} = await api.get(GET_MY_INFO)
-            setUser(user)
-
+            action({
+                type: SET,
+                path: "authenticatedUser",
+                payload: user
+            })
             router.push('/');
-            toast.success('mission accomplished');
         }
     }
 
     const logout = () => {
         Cookies.remove('token')
-        setUser(null)
+        action({
+            type: REMOVE,
+            path: "authenticatedUser",
+        })
         delete api.defaults.headers.Authorization
         router.push('/');
     }
 
 
     return (
-        <AuthContext.Provider value={{isAuthenticated: !!user, login, isLoading: loading, logout}}>
+        <AuthContext.Provider value={{isAuthenticated: !!authenticatedUser, login, isLoading: loading, logout}}>
             {children}
         </AuthContext.Provider>
     )

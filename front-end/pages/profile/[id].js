@@ -5,6 +5,7 @@ import {GET_USER} from "@/constans/urls";
 import Loading from "@/components/loading";
 import {useRouter} from "next/router";
 import Articles from "@/pages/profile/views/articles";
+import Meta from "@/components/layout/Meta";
 
 function Profile() {
 
@@ -21,6 +22,9 @@ function Profile() {
 
     return (
         <div className="bg-gray-100 antialiased py-40">
+
+            <Meta title={"Profile"} keywords={"none2"}/>
+
             <div className="container mx-auto ">
                 <div>
 

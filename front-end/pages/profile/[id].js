@@ -60,6 +60,13 @@ function Profile() {
 
                             <Articles {...{id}}/>
                         </div>
+                        <div className="p-4 pt-2 text-right">
+                            <button type="submit"
+                                    onClick={() => router.push("/add-article")}
+                                    className="inline-flex justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+                                Add article
+                            </button>
+                        </div>
                     </div>
 
                 </div>

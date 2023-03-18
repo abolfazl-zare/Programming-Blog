@@ -42,7 +42,7 @@ export default function Home({articles, error}) {
             {error ? <Error title={"Error communicating with the server"}/> : (
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-x-5 gap-y-5">
                     {articles.map(({id, attributes: {content, image, title}}) => {
-                        const {data: {attributes: {url}}} = image;
+                        let url = image.data ? image.data.attributes.url : "";
                         return (
                             <div className="cursor-pointer max-w-sm rounded overflow-hidden shadow-lg" key={id}
                                  onClick={() => router.push("/article/" + id)}>

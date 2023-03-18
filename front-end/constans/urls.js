@@ -9,3 +9,4 @@ export const GET_USER_ARTICLES = "/api/articles?filters[author][id][$eq]={id}&po
 
 export const GET_ARTICLES = "/api/articles?populate=*";
 export const GET_ARTICLE = "/api/articles/{id}?populate[author][populate]=*";
+export const POST_ARTICLE = "/api/articles";

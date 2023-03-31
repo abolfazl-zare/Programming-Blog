@@ -1,6 +1,6 @@
 import {useRouter} from "next/router";
-import {useAuth} from "@/contexts/auth/auth";
-import {useStore} from "@/contexts/store/store";
+import {useAuth} from "../../contexts/auth/auth";
+import {useStore} from "../../contexts/store/store";
 
 function Navigation() {
     const router = useRouter();

@@ -1,8 +1,8 @@
 import React from 'react';
 import useSWR from "swr";
-import {GET_USER_ARTICLES} from "@/constans/urls";
-import api from "@/utils/api";
-import Loading from "@/components/loading";
+import {GET_USER_ARTICLES} from "../../../constans/urls";
+import api from "../../../utils/api";
+import Loading from "../../../components/loading";
 import {useRouter} from "next/router";
 
 function Articles(props) {

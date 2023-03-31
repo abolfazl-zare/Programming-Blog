@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
-import api from "@/utils/api";
+import api from "../../utils/api";
 import useSWR from 'swr'
-import {GET_USER} from "@/constans/urls";
-import Loading from "@/components/loading";
+import {GET_USER} from "../../constans/urls";
+import Loading from "../../components/loading";
 import {useRouter} from "next/router";
-import Articles from "@/pages/profile/views/articles";
-import Meta from "@/components/layout/Meta";
+import Articles from "../../pages/profile/views/articles";
+import Meta from "../../components/layout/Meta";
 
 function Profile() {
 

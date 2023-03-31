@@ -1,7 +1,7 @@
-import api from "@/utils/api";
-import {GET_ARTICLE, GET_ARTICLES} from "@/constans/urls";
-import Error from "@/components/error";
-import Meta from "@/components/layout/Meta";
+import api from "../../utils/api";
+import {GET_ARTICLE, GET_ARTICLES} from "../../constans/urls";
+import Error from "../../components/error";
+import Meta from "../../components/layout/Meta";
 import {useRouter} from "next/router";
 
 export default function Home({article, error}) {

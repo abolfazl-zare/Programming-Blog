@@ -2,10 +2,10 @@ import React, {createContext, useState, useContext, useEffect} from 'react'
 import Cookies from 'js-cookie'
 import {useRouter,} from 'next/router'
 import api from '../../utils/api';
-import Loading from "@/components/loading";
-import {GET_MY_INFO, POST_LOGIN} from "@/constans/urls";
-import {privateRoutes} from "@/contexts/auth/private-routes";
-import {REMOVE, SET, useStore} from "@/contexts/store/store";
+import Loading from "../../components/loading";
+import {GET_MY_INFO, POST_LOGIN} from "../../constans/urls";
+import {privateRoutes} from "./private-routes";
+import {REMOVE, SET, useStore} from "../store/store";
 
 
 const AuthContext = createContext({});

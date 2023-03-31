@@ -5,7 +5,7 @@ import update from "lodash/update";
 import unset from "lodash/unset";
 import _set from "lodash/set";
 import get from "lodash/get";
-import removeEmptySlots from "@/contexts/store/utils/removeEmptySlots";
+import removeEmptySlots from "./utils/removeEmptySlots";
 
 const {Provider, useStore} = createContext();
 

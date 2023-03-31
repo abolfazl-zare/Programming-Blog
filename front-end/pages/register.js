@@ -1,10 +1,10 @@
-import {useAuth} from "@/contexts/auth/auth";
+import {useAuth} from "../contexts/auth/auth";
 import {useState} from "react";
 import Axios from "axios";
 import api from "../utils/api";
 import {useRouter} from "next/router";
 import {toast} from 'react-toastify';
-import {POST_REGISTER} from "@/constans/urls";
+import {POST_REGISTER} from "../constans/urls";
 
 export default function Login() {
 

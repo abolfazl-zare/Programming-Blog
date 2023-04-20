@@ -3,9 +3,36 @@ import {GET_ARTICLE, GET_ARTICLES} from "../../constans/urls";
 import Error from "../../components/error";
 import Meta from "../../components/layout/Meta";
 import {useRouter} from "next/router";
+import { FC } from "react"
 
-export default function Home({article, error}) {
+interface IProps {
+    article : {
+        attributes : {
+            author : {
+                data : {
+                    attributes: {
+                        firstName : string,
+                        lastName : string,
+                        createdAt : string,
+                        job : string,
+                        avatar : any,
+                    },
+                    id:number
+                },
+            },
+            content: string | number,
+            createdAt:string,
+            publishedAt:string,
+            title:string,
+            updatedAt:string,
+        },
+        id  : number
+    },
+    error:Boolean | String,
+}
 
+const ArticleComponent : FC<IProps> = ({article, error}) => {
+    
     const router = useRouter();
 
     if (error) {
@@ -42,7 +69,7 @@ export default function Home({article, error}) {
                                         {job}
                                     </p>
                                     <p className="text-base font-light text-gray-500 dark:text-gray-400">
-                                        <time pubdate dateTime="2022-02-08" title="February 8th, 2022">
+                                        <time dateTime="2022-02-08" title="February 8th, 2022">
                                             {createdAt}
                                         </time>
                                     </p>
@@ -66,9 +93,11 @@ export default function Home({article, error}) {
     )
 }
 
+export default ArticleComponent;
+
 export async function getStaticProps(context) {
 
-    let error = false;
+    let error : boolean | string = false;
     let res = await api.get(GET_ARTICLE.replace("{id}", context.params.id)).then(response => response.data).then((reponse) => {
         return reponse.data
     }).catch(() => {

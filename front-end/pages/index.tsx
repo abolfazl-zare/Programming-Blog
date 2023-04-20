@@ -1,13 +1,10 @@
-import {Inter} from 'next/font/google'
 import {useEffect} from "react";
 import {useStore, SET, REMOVE} from "../contexts/store/store";
 import api from "../utils/api";
-import {GET_ARTICLES} from "@/constans/urls";
+import {GET_ARTICLES} from "../constans/urls";
 import Error from "../components/error";
 import {useRouter} from "next/router";
 import Meta from "../components/layout/Meta";
-
-const inter = Inter({subsets: ['latin']})
 
 export default function Home({articles, error}) {
 
@@ -68,7 +65,7 @@ export default function Home({articles, error}) {
 
 export async function getStaticProps() {
 
-    let error = false;
+    let error : any = false;
     let res = await api.get(GET_ARTICLES).then(response => response.data).then((reponse) => {
         return reponse.data
     }).catch(() => {

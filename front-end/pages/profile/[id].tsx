@@ -1,18 +1,18 @@
-import React, {useEffect} from 'react';
+import React, {FC} from 'react';
 import api from "../../utils/api";
 import useSWR from 'swr'
 import {GET_USER} from "../../constans/urls";
 import Loading from "../../components/loading";
 import {useRouter} from "next/router";
-import Articles from "../../pages/profile/views/articles";
+import Articles from "./views/articles";
 import Meta from "../../components/layout/Meta";
 
-function Profile() {
+const Profile : FC = () => {
 
     const router = useRouter();
-    const {id} = router.query;
+    const {id} : {id? : string} = router.query;
 
-    const {data, error} = useSWR(GET_USER.replace("{id}", id), api);
+    const {data, error} = useSWR<any, Error>(GET_USER.replace("{id}", id), api);
 
     if (error) return <div>failed to load</div>
     if (!data) return <Loading className="w-100 py-40 flex justify-center"/>
